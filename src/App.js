@@ -1,9 +1,10 @@
 import React from 'react';
 import { auth, CreateUserProfileDocument } from './firebase/firebase.utils'
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
-import Header from './components/header/header.component';
+import CheckoutPage from './pages/checkout/checkout.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sing-up/sign-in-and-sing-up.component'
 import { connect } from 'react-redux';
 import {createStructuredSelector} from 'reselect'
@@ -49,7 +50,8 @@ class App extends React.Component {
         <Header></Header>
         <Switch>
           <Route exact path='/' component={HomePage}></Route>
-          <Route exact path='/shop' component={ShopPage}></Route>
+          <Route path='/shop' component={ShopPage}></Route>
+          <Route exact path='/checkout' component={CheckoutPage}></Route>
           <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/'></Redirect>) : (<SignInAndSignUpPage></SignInAndSignUpPage>)}></Route>
           <Route exact path='/shop/hats' component={TestPage}></Route>
           <Route exact path='/shop/jackets' component={TestPage}></Route>
