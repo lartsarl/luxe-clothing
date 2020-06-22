@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const ButtonStyles = css`
+const buttonStyles = css`
   background-color: black;
   color: white;
   border: none;
@@ -12,7 +12,7 @@ const ButtonStyles = css`
   }
 `;
 
-const InvertedButtonStyles = css`
+const invertedButtonStyles = css`
   background-color: white;
   color: black;
   border: 1px solid black;
@@ -24,7 +24,7 @@ const InvertedButtonStyles = css`
   }
 `;
 
-const GoogleSignInStyles = css`
+const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
 
@@ -36,10 +36,10 @@ const GoogleSignInStyles = css`
 
 const getButtonStyles = props => {
   if (props.isGoogleSignIn) {
-    return GoogleSignInStyles;
+    return googleSignInStyles;
   }
 
-  return props.inverted ? InvertedButtonStyles : ButtonStyles;
+  return props.inverted ? invertedButtonStyles : buttonStyles;
 };
 
 export const CustomButtonContainer = styled.button`
@@ -56,5 +56,6 @@ export const CustomButtonContainer = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
+
   ${getButtonStyles}
 `;
