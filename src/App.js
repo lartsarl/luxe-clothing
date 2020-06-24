@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
@@ -12,26 +12,10 @@ import { selectCurrentUser } from './redux/user/user.selector';
 import './App.css';
 import { checkUserSession } from './redux/user/user.actions';
 
-const TestPage = (props) => (
-  <div>
-    <h1>TEST PAGE</h1>
-  </div>
-)
-
-class App extends React.Component {
-  unsubscribeFromAuth = null;
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
-
-  componentDidMount(){
-    const {checkUserSession} = this.props;
-    checkUserSession();
-  }
-
-  render() {
-    const {currentUser} = this.props;
+const App = ({checkUserSession, currentUser}) => {
+  useEffect(() => {
+    checkUserSession()
+  }, [checkUserSession]);
     return (
       <div>
         <Header></Header>
@@ -40,16 +24,10 @@ class App extends React.Component {
           <Route path='/shop' component={ShopPage}></Route>
           <Route exact path='/checkout' component={CheckoutPage}></Route>
           <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/'></Redirect>) : (<SignInAndSignUpPage></SignInAndSignUpPage>)}></Route>
-          <Route exact path='/shop/hats' component={TestPage}></Route>
-          <Route exact path='/shop/jackets' component={TestPage}></Route>
-          <Route exact path='/shop/sneakers' component={TestPage}></Route>
-          <Route exact path='/shop/womens' component={TestPage}></Route>
-          <Route exact path='/shop/mens' component={TestPage}></Route>
         </Switch>
       </div>
     );
   }
-}
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
